@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+    <title></title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel='stylesheet' href='/road/style.css' />
+    <script src="lib/zepto/zepto.js"></script>
+    <script src="lib/hammer/hammer.js"></script>
+    <script src="lib/three/three.min.js"></script>
+    <script src="lib/three/tween.min.js"></script>
+    <script src="lib/three/renderers/CSS3DRenderer.js"></script>
+
+</head>
+<body>
+    <article id="viewport-rot">
+        <div id="viewport-pos">
+            <div id="mw-1" data-pos="[4200,-100,-100]" data-rot="[0,-0.5,0]">
+            </div>
+            <div id="timeline" data-pos="[2200,-220,-600]" data-rot="[0.0,-0.0,-0.5]">
+            </div>
+            <div id="road" data-pos="[2200,-250,0]" data-rot="[0.5,-1,0.5]">
+                <div class="bg">
+                    <div class="content">
+                        <h1>sss</h1>
+                    </div>
+                </div>
+                <div style="position:absolute;top:0;left: 33%;bottom: 0; background-color: black;width: 1%"></div>
+                <div style="position:absolute;top:0;right: 33%;bottom: 0; background-color: red;width: 1%"></div>
+            </div>
+            <section id="y2002" data-pos="[500,100,-200]" data-rot="[0,-0.1,0]"
+                     data-goto="[[-360, -60,-210],[0, -0.4,0]]">
+                <div class="front">
+                    <div class="year">
+                        <span class="from">2001</span>
+                    </div>
+                </div>
+                <div class="reveal">
+                    <h2>Associate Editor at Iranian Astronomy Magazine (Nojum)</h2>
+                    <div class="duration">2001 - 2008</div>
+                    <ul class="tasks">
+                        <li>Highschool job</li>
+                        <li>Authored and translated 30+ articles</li>
+                        <li>Created and managed the Magazine's website
+                            <ul>
+                                <li>Interactive JavaScript sky map</li>
+                                <li>Live webcast of astronomy events</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+            <section id="y2006" data-pos="[800,100,200]" data-rot="[1,-0.2,1]"
+                     data-goto="[[-500, -80,80],[0, 0.3,0]]">
+                <div class="front">
+                    <div class="year">
+                        <span class="from">2006</span>
+                    </div>
+                 </div>
+                <div class="reveal">
+                    <h2>Developer at RENA</h2>
+                    <div class="duration">2006 - 2007</div>
+                    <ul class="tasks">
+                        <li>Helped the R8D team in creating and testing web portals</li>
+                    </ul>
+                </div>
+            </section>
+            <section id="y2010" data-pos="[1100,100,-150]" data-rot="[0,-0.2,0]"
+                     data-goto="[[-900, -60,-120],[0, -0.3,0]]">
+                2010
+            </section>
+            <section id="y2013" data-pos="[1400,100,200]" data-rot="[1,-0.2,1]"
+                    data-goto="[[-1200, -80,40],[0, 0.3,0]]">
+                <div class="front">
+                    2013
+                </div>
+            </section>
+        </div>
+    </article>
+
+    <script src="road/scripts/index.js"></script>
+</body>
+</html>

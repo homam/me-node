@@ -2,6 +2,8 @@ var camera, scene, renderer, posParent, rotParent;
 var geometry, material, mesh;
 var target = new THREE.Vector3(0,0,0);
 
+var posScale = 100;
+
 var lon = 0, lat = 0;
 var phi = 0, theta = 0;
 
@@ -29,7 +31,7 @@ function init() {
         var object = new THREE.CSS3DObject( element );
 
         object.rotation = new THREE.Vector3(rot[0], rot[1], rot[2]).multiplyScalar(Math.PI);
-        object.position = new THREE.Vector3(pos[0],pos[1],pos[2]);
+        object.position = new THREE.Vector3(pos[0],pos[1],pos[2]).multiplyScalar(posScale);
 
         posParent.add(object);
 
@@ -43,7 +45,7 @@ function init() {
         if(!e.dataset.goto)
             return;
         var goto = JSON.parse(e.dataset.goto);
-        var epos = new THREE.Vector3(goto[0][0],goto[0][1],goto[0][2]);
+        var epos = new THREE.Vector3(goto[0][0],goto[0][1],goto[0][2]).multiplyScalar(posScale);
         var erot = new THREE.Vector3(goto[1][0],goto[1][1],goto[1][2]).multiplyScalar(Math.PI);
         window['goto_' + e.id] = function() {
             $("body").attr("data-year", e.id.slice(1));
@@ -81,7 +83,7 @@ function init() {
     });
 
     var $timeline = $("#timeline");
-    var height = (4*1026)/(2015-2000);
+    var height = (10.25*posScale)/(2015-2000);
     for(var y = 2015; y>=2000;y--) {
         var $year = $("<div class='year'></div>").html(y)//.css("-webkit-transform","translate3d(0,1000px,10px)");
             .css("bottom", (y-2000)*height);

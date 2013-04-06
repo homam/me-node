@@ -1,4 +1,5 @@
 @import "_prefixer";
+@posScale: 100;
 
 body {
   background-color: #000000;
@@ -24,18 +25,18 @@ section{
 
 
 #road {
-  height: 4*1026px;
-  width:1026px;
+  height: @posScale * 10.26px;
+  width: @posScale * 2.565px;
 }
 #timeline{
-  height: 4*1026px;
-  width: 100px;
+  height: @posScale * 10.26px;
+  width: @posScale * 0.25px;
   background-color: #050841;
   z-index: 1;
   position: relative;
 
   .year {
-    font-size: 400%;
+    font-size: @posScale * 1%;
     position: absolute;
     .transform(rotateZ(-90deg) translateY(-40px))
   }
@@ -51,8 +52,8 @@ section{
 }
 
 .reveal-year() {
-  height: 400px;
-  width: 460px;
+  height: @posScale * 1px;
+  width: @posScale * 1.15px;
   .front {
     opacity: 0;
   }
@@ -63,11 +64,11 @@ section{
 }
 
 section {
-  width: 300px;
-  height: 200px;
+  width: @posScale * 0.75px;
+  height: @posScale * 0.5px;
   background-color: rgba(10,10,100,1);
   color: white;
-  font-size: 200%;
+  font-size: @posScale * 0.5%;
   border: solid 0px green;
   position: relative;
   overflow: hidden;
@@ -128,8 +129,8 @@ section {
 #mw-1{
   display: none;
   background-color: orangered;
-  width: 8400px;
-  height: 8400px;
+  width: @posScale * 21px;
+  height: @posScale * 21px;
   //background-image: url('/road/images/mw.jpg');
   background-size: cover;
   background-position: 50% 50%;

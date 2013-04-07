@@ -7,6 +7,7 @@ var express = require('express')
   , routes = require('./routes')
   , user = require('./routes/user')
   , road = require('./routes/road')
+  , par = require('./routes/par')
   , http = require('http')
   , path = require('path');
 
@@ -36,6 +37,7 @@ app.configure('development', function(){
 
 app.get('/', routes.index);
 app.get('/road', road.index);
+app.get('/par', par.index);
 app.get('/users', user.list);
 
 http.createServer(app).listen(app.get('port'), function(){

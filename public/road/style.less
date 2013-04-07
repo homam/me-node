@@ -1,5 +1,5 @@
 @import "_prefixer";
-@posScale: 100;
+@posScale: 200;
 
 body {
   background-color: #000000;
@@ -31,29 +31,29 @@ section{
 #timeline{
   height: @posScale * 10.26px;
   width: @posScale * 0.25px;
-  background-color: #050841;
+  background-color:#08b200;
   z-index: 1;
   position: relative;
 
   .year {
     font-size: @posScale * 1%;
     position: absolute;
-    .transform(rotateZ(-90deg) translateY(-40px))
+    .transform(rotateZ(-90deg) translateY(-10px))
   }
 }
 
 #road> div.bg {
   background-color: rgba(150,50,150,.5);
   position: absolute;top: 0;left: 0;right: 0;bottom: 0;
-  background-image: url('/road/images/sunset.jpg');
-  background-size: cover;
-  background-repeat: no-repeat;
+  background-image: url('/road/images/yellowbrick.jpg');
+  background-size: 35%;
+  //background-repeat: no-repeat;
   background-position: center;
 }
 
 .reveal-year() {
-  height: @posScale * 1px;
-  width: @posScale * 1.15px;
+  height: @posScale * 1.8px;
+  width: @posScale * 2.25px;
   .front {
     opacity: 0;
   }
@@ -68,15 +68,14 @@ section {
   height: @posScale * 0.5px;
   background-color: rgba(10,10,100,1);
   color: white;
-  font-size: @posScale * 0.5%;
-  border: solid 0px green;
+  font-size: @posScale * 1%;
   position: relative;
   overflow: hidden;
   .transition(height 1s linear 1s, width .5s linear 2s);
 
   .front, .reveal {
     position: absolute;top: 0;right: 0;bottom: 0;left: 0;
-    border: solid 10px #008000;
+    border: solid 10px #ff0000;
     .transition(opacity 1s linear 3s);
   }
   .front .year {

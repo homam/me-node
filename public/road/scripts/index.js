@@ -2,16 +2,33 @@ var camera, scene, renderer, posParent, rotParent;
 var geometry, material, mesh;
 var target = new THREE.Vector3(0,0,0);
 
-var posScale = 100;
+var posScale = 200;
 
 var lon = 0, lat = 0;
 var phi = 0, theta = 0;
 
-var touchX, touchY;
+var allBoards = {};
+var currentBoard = null;
+
+function gotoBoard(id) {
+    if(!!currentBoard){
+        currentBoard.unreveal();
+    }
+    var board = allBoards[id];
+    if(!!board && board.gotoAndReveal) {
+        board.gotoAndReveal();
+        currentBoard = board;
+        return true;
+    }
+
+    currentBoard = null;
+    return false;
+}
 
 
 init();
 animate();
+
 
 function init() {
 
@@ -40,17 +57,40 @@ function init() {
 
 
     $("#viewport-pos").children().forEach(function(e) {
-        addObject(e, JSON.parse(e.dataset.pos), JSON.parse(e.dataset.rot));
+        var obj = addObject(e, JSON.parse(e.dataset.pos), JSON.parse(e.dataset.rot));
+        allBoards[e.id] = new (function(o,e) {
+            this.obj = o;
 
-        if(!e.dataset.goto)
-            return;
-        var goto = JSON.parse(e.dataset.goto);
-        var epos = new THREE.Vector3(goto[0][0],goto[0][1],goto[0][2]).multiplyScalar(posScale);
-        var erot = new THREE.Vector3(goto[1][0],goto[1][1],goto[1][2]).multiplyScalar(Math.PI);
-        window['goto_' + e.id] = function() {
-            $("body").attr("data-year", e.id.slice(1));
-            window.goto(epos,erot);
-        };
+            var year = +e.id.slice(1);
+
+            if(!e.dataset.goto)
+                return;
+            var goto = JSON.parse(e.dataset.goto);
+            var epos = new THREE.Vector3(goto[0][0],goto[0][1],goto[0][2]).multiplyScalar(posScale);
+            var erot = new THREE.Vector3(goto[1][0],goto[1][1],goto[1][2]).multiplyScalar(Math.PI);
+
+            if(!e.dataset.rpos)
+                return;
+
+            var irot = obj.rotation.clone();
+            var ipos = obj.position.clone();
+
+            var dpos = JSON.parse(e.dataset.rpos);
+            var drot = JSON.parse(e.dataset.rrot);
+            var rpos = new THREE.Vector3(dpos[0],dpos[1],dpos[2]).multiplyScalar(posScale);
+            var rrot = new THREE.Vector3(drot[0],drot[1],drot[2]).multiplyScalar(Math.PI);
+            this.gotoAndReveal = function() {
+                $("body").attr("data-year", year);
+                window.goto(epos,erot);
+                window.updateObject(this.obj,rpos,rrot);
+            };
+            this.unreveal = function() {
+                window.updateObject(this.obj,ipos, irot);
+            };
+
+        })(obj,e);
+
+
     });
 
 
@@ -64,7 +104,7 @@ function init() {
         var year = +document.body.dataset.year;
         var next = !year ? $("#y2002") : $("#y" +year).next();
         if(!next.length) return;
-        window['goto_' + next[0].id]();
+        gotoBoard(next[0].id);
     });
 
     Hammer(document.body).on("swiperight", function(){
@@ -72,14 +112,11 @@ function init() {
         if(!year) return;
         var prev =  $("#y" +year).prev();
         if(!prev) return;
-        var f= window['goto_' + prev[0].id];
-        if(!f) {
-            f = function() {
-              document.body.dataset.year = null;
-              goto(new THREE.Vector3(0,0,0), new THREE.Vector3(0,0,0));
-            };
+        var gone= gotoBoard(prev[0].id);
+        if(!gone) {
+          document.body.dataset.year = null;
+          goto(new THREE.Vector3(0,0,0), new THREE.Vector3(0,0,0));
         }
-        f();
     });
 
     var $timeline = $("#timeline");
@@ -149,9 +186,19 @@ function goto(epos, erot) {
     new TWEEN.Tween({x:ipos.x,y:ipos.y,z:ipos.z,rx:irot.x, ry:irot.y, rz: irot.z})
         .to({x:epos.x,y:epos.y,z:epos.z,rx:erot.x, ry:erot.y, rz: erot.z},1000)
         .onUpdate(function(){
-
             posParent.position.set(this.x,this.y,this.z);
             rotParent.rotation.set(this.rx,this.ry,this.rz);
+        }).start();
+}
+
+function updateObject(obj, epos, erot) {
+    var ipos = obj.position;
+    var irot = obj.rotation;
+    new TWEEN.Tween({x:ipos.x,y:ipos.y,z:ipos.z,rx:irot.x, ry:irot.y, rz: irot.z})
+        .to({x:epos.x,y:epos.y,z:epos.z,rx:erot.x, ry:erot.y, rz: erot.z},1000)
+        .onUpdate(function(){
+            obj.position.set(this.x,this.y,this.z);
+            obj.rotation.set(this.rx,this.ry,this.rz);
         }).start();
 }
 
@@ -167,5 +214,5 @@ function hideAddressBar() {
 }
 
 
-//setTimeout(goto_y2006,1000)
+//setTimeout(goto_y2002,1000)
 //setTimeout(goto_y2013,4000)

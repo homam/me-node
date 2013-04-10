@@ -2,4 +2,41 @@
 
 body{
   font-family: sans-serif;
+  color: red;
+
+  &.mobile {
+    overflow: hidden;
+    article {
+      position: fixed;
+      top: 0;left: 0;right: 0;bottom: 0;
+      overflow: auto;
+      //-webkit-overflow-scrolling:touch;
+    }
+  }
+
+}
+
+section {
+  display: table-row;
+  width: 100%;
+
+  h3 {
+    margin: 0;
+    padding: 0;
+    display: table-cell;
+    vertical-align: middle;
+    width: 10%;
+    .transform(translate3d(-1em,0,0) rotateZ(90deg))
+  }
+  .content {
+    display: table-cell;
+    width: 90%;
+  }
+}
+section[data-time=present]{
+  height: 500px;
+}
+
+section[data-time="2010"]{
+  height: 600px;
 }

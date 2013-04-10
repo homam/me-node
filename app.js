@@ -35,7 +35,7 @@ app.configure('development', function(){
   app.use(express.errorHandler());
 });
 
-app.get('/', routes.index);
+app.get('/', routes.whatsapp);
 app.get('/road', road.index);
 app.get('/par', par.index);
 app.get('/users', user.list);

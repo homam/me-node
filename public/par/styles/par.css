@@ -77,4 +77,42 @@
 /* Transitions */
 body {
   font-family: sans-serif;
+  color: red;
+}
+body.mobile {
+  overflow: hidden;
+}
+body.mobile article {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: auto;
+}
+section {
+  display: table-row;
+  width: 100%;
+}
+section h3 {
+  margin: 0;
+  padding: 0;
+  display: table-cell;
+  vertical-align: middle;
+  width: 10%;
+  -webkit-transform: translate3d(-1em, 0, 0) rotateZ(90deg);
+  -moz-transform: translate3d(-1em, 0, 0) rotateZ(90deg);
+  -ms-transform: translate3d(-1em, 0, 0) rotateZ(90deg);
+  -o-transform: translate3d(-1em, 0, 0) rotateZ(90deg);
+  transform: translate3d(-1em, 0, 0) rotateZ(90deg);
+}
+section .content {
+  display: table-cell;
+  width: 90%;
+}
+section[data-time=present] {
+  height: 500px;
+}
+section[data-time="2010"] {
+  height: 600px;
 }
